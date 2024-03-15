@@ -32,7 +32,7 @@ public class AuthController {
     private CredentialValidator validator;
 
     public AuthController(UserRepository userDAO, JWTUtil jwtUtil, AuthenticationManager authManager,
-                          PasswordEncoder passwordEncoder, CredentialValidator validator) {
+            PasswordEncoder passwordEncoder, CredentialValidator validator) {
         this.userDAO = userDAO;
         this.jwtUtil = jwtUtil;
         this.authManager = authManager;
@@ -44,26 +44,23 @@ public class AuthController {
     public ResponseEntity<LoginResponse> register(@RequestBody AuthenticationDTO authenticationDTO) {
         if (!validator.isValidEmail(authenticationDTO.email)) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "No valid email provided"
-            );
+                    HttpStatus.BAD_REQUEST, "No valid email provided");
         }
 
         if (!validator.isValidPassword(authenticationDTO.password)) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "No valid password provided"
-            );
+                    HttpStatus.BAD_REQUEST, "No valid password provided");
         }
 
         CustomUser customUser = userDAO.findByEmail(authenticationDTO.email);
 
-        if (customUser != null){
+        if (customUser != null) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Can not register with this email"
-            );
+                    HttpStatus.NOT_FOUND, "Can not register with this email");
         }
         String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
-
-        CustomUser registerdCustomUser = new CustomUser(authenticationDTO.email, encodedPassword);
+        CustomUser registerdCustomUser = new CustomUser(authenticationDTO.email, encodedPassword,
+                authenticationDTO.role);
         userDAO.save(registerdCustomUser);
         String token = jwtUtil.generateToken(registerdCustomUser.getEmail());
         LoginResponse loginResponse = new LoginResponse(registerdCustomUser.getEmail(), token);
@@ -73,8 +70,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO body) {
         try {
-            UsernamePasswordAuthenticationToken authInputToken =
-                    new UsernamePasswordAuthenticationToken(body.email, body.password);
+            UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(body.email,
+                    body.password);
 
             authManager.authenticate(authInputToken);
 
@@ -83,13 +80,11 @@ public class AuthController {
             CustomUser customUser = userDAO.findByEmail(body.email);
             LoginResponse loginResponse = new LoginResponse(customUser.getEmail(), token);
 
-
             return ResponseEntity.ok(loginResponse);
 
         } catch (AuthenticationException authExc) {
             throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN, "No valid credentials"
-            );
+                    HttpStatus.FORBIDDEN, "No valid credentials");
         }
     }
 
