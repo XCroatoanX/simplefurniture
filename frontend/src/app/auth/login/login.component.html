@@ -1,5 +1,7 @@
 <div class="example-container">
-  <mat-form-field appearance="outline">
+  <form [formGroup]="form">
+    <!-- Email Form Field-->
+    <mat-form-field appearance="outline">
     <mat-label>Enter your email</mat-label>
     <input
       matInput
@@ -10,22 +12,30 @@
     @if (email.invalid) {
     <mat-error>{{ getEmailErrorMessage() }}</mat-error>
     }
+
+  <!-- Password Form Field-->  
   </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Enter your password</mat-label>
-    <input
-      matInput
-      maxlength="55"
-      placeholder="Password"
-      [formControl]="password"
-      required
-    />
-    
-    <mat-hint align="end">{{ password.value.length }}/55</mat-hint>
-    @if (password.invalid) {
-    <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
-    }
-  </mat-form-field>
-  <button mat-raised-button color="primary">Log in</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        maxlength="55"
+        placeholder="Password"
+        [formControl]="password"
+        [type]="passwordFieldType"
+        required
+      />
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+        <mat-icon>{{
+          showPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-hint align="end">{{ password.value.length }}/55</mat-hint>
+      @if (password.invalid) {
+      <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <button mat-raised-button color="primary">Log in</button>
+  </form>
   <p>First time here? Register here</p>
 </div>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,10 +12,42 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
 })
-export class LoginComponent {
-  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]);
-  password = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(55), Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@!#$%^&*])[A-Za-z0-9@!#$%^&*]{8,}$/)]);
+export class LoginComponent implements OnInit {
 
+  form: FormGroup;
+  email: FormControl;
+  password: FormControl;
+  
+  showPassword: boolean = false;
+  passwordFieldType: string = 'password';
+
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.password = new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(55),
+      Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@!#$%^&*])[A-Za-z0-9@!#$%^&*]{8,}$/)]);
+
+    this.email = new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]);
+
+    this.form = this.formBuilder.group({
+      email: this.email,
+      password: this.password
+    });
+  }
+
+  // Toggles password visibility
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+    this.passwordFieldType = this.showPassword ? 'text' : 'password';
+  }
+
+  // Error handling
   getEmailErrorMessage() {
     if (this.email.hasError('required')) {
       return 'Please enter an email address';
