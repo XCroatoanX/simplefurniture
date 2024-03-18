@@ -1,0 +1,31 @@
+<div class="example-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      [formControl]="email"
+      required
+    />
+    @if (email.invalid) {
+    <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      maxlength="55"
+      placeholder="Password"
+      [formControl]="password"
+      required
+    />
+    
+    <mat-hint align="end">{{ password.value.length }}/55</mat-hint>
+    @if (password.invalid) {
+    <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+  <button mat-raised-button color="primary">Log in</button>
+  <p>First time here? Register here</p>
+</div>
