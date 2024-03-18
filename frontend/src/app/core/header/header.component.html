@@ -1,0 +1,56 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+  rel="stylesheet"
+/>
+
+<mat-toolbar>
+  <a
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+    routerLink="/"
+    class="header_logo_button"
+  >
+    <img
+      src="../../../assets/Website Icons/Logo-2.png"
+      alt="placeholder"
+      class="header_logo"
+  /></a>
+  <span class="header_title">SimpleFurniture</span>
+  <div class="header_center">
+    <mat-form-field class="search_bar">
+      <mat-label>Search</mat-label>
+      <input matInput />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="header_right">
+    <a
+      mat-icon-button
+      color="primary"
+      aria-label="Example icon button with a home icon"
+      class="header_button"
+    >
+      <mat-icon class="material-icons-two-tone">favorite</mat-icon>
+    </a>
+    <a
+      mat-icon-button
+      color="primary"
+      aria-label="Example icon button with a home icon"
+      class="header_button"
+    >
+      <mat-icon class="material-icons-two-tone">shopping_cart</mat-icon>
+    </a>
+    <a
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/auth/login"
+      mat-icon-button
+      color="primary"
+      aria-label="Example icon button with a home icon"
+      class="header_button"
+    >
+      <mat-icon class="material-icons-two-tone">account_circle</mat-icon>
+    </a>
+  </div>
+</mat-toolbar>
