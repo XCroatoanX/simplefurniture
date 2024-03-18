@@ -4,25 +4,27 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, RouterModule],
 })
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
   email: FormControl;
   password: FormControl;
-  
+
   showPassword: boolean = false;
   passwordFieldType: string = 'password';
 
   constructor(private formBuilder: FormBuilder) { }
 
+  // Form construction
   ngOnInit() {
     this.password = new FormControl('', [
       Validators.required,
@@ -32,8 +34,8 @@ export class LoginComponent implements OnInit {
 
     this.email = new FormControl('', [
       Validators.required,
-      Validators.email
-    ]);
+      Validators.email,
+      Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]);
 
     this.form = this.formBuilder.group({
       email: this.email,

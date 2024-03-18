@@ -2,19 +2,19 @@
   <form [formGroup]="form">
     <!-- Email Form Field-->
     <mat-form-field appearance="outline">
-    <mat-label>Enter your email</mat-label>
-    <input
-      matInput
-      placeholder="pat@example.com"
-      [formControl]="email"
-      required
-    />
-    @if (email.invalid) {
-    <mat-error>{{ getEmailErrorMessage() }}</mat-error>
-    }
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="email"
+        required
+      />
+      @if (email.invalid) {
+      <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+      }
 
-  <!-- Password Form Field-->  
-  </mat-form-field>
+      <!-- Password Form Field-->
+    </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Enter your password</mat-label>
       <input
@@ -35,7 +35,14 @@
       <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
       }
     </mat-form-field>
-    <button mat-raised-button color="primary">Log in</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid">
+      Log in
+    </button>
   </form>
-  <p>First time here? Register here</p>
+  <a
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+    routerLink="/auth/register"
+    >First time here? Register here</a
+  >
 </div>
