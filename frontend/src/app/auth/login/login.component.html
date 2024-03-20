@@ -1,49 +1,49 @@
 <div class="example-container">
-  <form [formGroup]="form">
-    <!-- Email Form Field-->
-    <mat-form-field appearance="outline">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="pat@example.com"
-        [formControl]="email"
-        required
-      />
-      @if (email.invalid) {
-      <mat-error>{{ getEmailErrorMessage() }}</mat-error>
-      }
+    <form [formGroup]="form" class="form-container">
+      <!-- Email Form Field-->
+      <mat-form-field appearance="outline" id="email-form-field">
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          [formControl]="email"
+          required
+        />
+        @if (email.invalid) {
+        <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+        }
 
-      <!-- Password Form Field-->
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Enter your password</mat-label>
-      <input
-        matInput
-        maxlength="55"
-        placeholder="Password"
-        [formControl]="password"
-        [type]="passwordFieldType"
-        required
-      />
-      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-        <mat-icon>{{
-          showPassword ? "visibility_off" : "visibility"
-        }}</mat-icon>
-      </button>
-      <mat-hint align="end">{{ password.value.length }}/55</mat-hint>
-      @if (password.invalid) {
-      <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
-      }
-    </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="form.invalid">
-      Log in
-    </button>
-  </form>
-  <a
-  class="register_link"
-    [routerLinkActive]="['active']"
-    [routerLinkActiveOptions]="{ exact: true }"
-    routerLink="/auth/register"
-    >First time here? Register here</a
-  >
+        <!-- Password Form Field-->
+      </mat-form-field>
+      <mat-form-field appearance="outline" id="password-form-field">
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          maxlength="55"
+          placeholder="Password"
+          [formControl]="password"
+          [type]="passwordFieldType"
+          required
+        />
+        <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>{{
+            showPassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-hint align="end">{{ password.value.length }}/55</mat-hint>
+        @if (password.invalid) {
+        <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="form.invalid">
+        Log in
+      </button><a
+      class="register_link"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/auth/register"
+      >First time here? Register here</a
+    >
+    </form>
+    
 </div>

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { ProductsModule } from '../products/products.module';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [ProductsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

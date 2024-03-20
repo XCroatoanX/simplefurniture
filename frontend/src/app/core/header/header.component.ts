@@ -4,7 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import "@material/web/textfield/filled-text-field";
 
 @Component({
   selector: 'app-header',
