@@ -42,7 +42,21 @@
       aria-label="Example icon button with a home icon"
       class="header_button"
     >
-      <mat-icon class="material-icons-two-tone">shopping_cart</mat-icon>
+      <mat-icon
+        class="material-icons-two-tone"
+        matBadge="{{ amountOfCartItems }} "
+        matBadgeSize="small"
+        >shopping_cart</mat-icon
+      >
+    </a>
+    <a
+      mat-icon-button
+      color="primary"
+      aria-label="Profile"
+      class="header_button"
+      *ngIf="userIsLoggedIn"
+    >
+      <mat-icon class="material-icons-two-tone">account_circle</mat-icon>
     </a>
     <a
       [routerLinkActive]="['active']"
@@ -50,10 +64,21 @@
       routerLink="/auth/login"
       mat-icon-button
       color="primary"
-      aria-label="Example icon button with a home icon"
+      aria-label="Log in"
       class="header_button"
+      *ngIf="!userIsLoggedIn"
     >
-      <mat-icon class="material-icons-two-tone">account_circle</mat-icon>
+      <mat-icon class="material-icons-two-tone">login</mat-icon>
+    </a>
+    <a
+      mat-icon-button
+      color="primary"
+      aria-label="Log Out"
+      class="header_button"
+      (click)="onLogout()"
+      *ngIf="userIsLoggedIn"
+    >
+      <mat-icon class="material-icons-two-tone">logout</mat-icon>
     </a>
   </div>
 </mat-toolbar>

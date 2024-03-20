@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit{
   showPassword: boolean = false;
   passwordFieldType: string = 'password';
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
   
   ngOnInit() {
     this.password = new FormControl('', [
@@ -70,5 +71,9 @@ export class RegisterComponent implements OnInit{
       return 'Password must be at least 8 characters and contain at least 1 uppercase letter, 1 number, and 1 special character (@, !, #, $, %, ^, &, *)';
     }
     return this.password.hasError('password') ? 'Not a valid password' : '';
+  }
+
+  public onSubmit(): void{
+    console.log('ok');
   }
 }

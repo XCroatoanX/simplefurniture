@@ -4,8 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { AuthService } from '../auth.service';
+import { AuthResponse } from '../auth-response.model';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +18,16 @@ import {MatGridListModule} from '@angular/material/grid-list';
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+  loginForm: FormGroup;
   email: FormControl;
   password: FormControl;
 
   showPassword: boolean = false;
   passwordFieldType: string = 'password';
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
+  
   // Form construction
   ngOnInit() {
     this.password = new FormControl('', [
@@ -38,17 +41,19 @@ export class LoginComponent implements OnInit {
       Validators.email,
       Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]);
 
-    this.form = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: this.email,
       password: this.password
     });
   }
+
 
   // Toggles password visibility
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
     this.passwordFieldType = this.showPassword ? 'text' : 'password';
   }
+
 
   // Error handling
   getEmailErrorMessage() {
@@ -61,6 +66,8 @@ export class LoginComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
+
+
   getPasswordErrorMessage() {
     if (this.password.hasError('required')) {
       return 'Please enter a valid password';
@@ -72,5 +79,15 @@ export class LoginComponent implements OnInit {
       return 'Password must be at least 8 characters and contain at least 1 uppercase letter, 1 number, and 1 special character (@, !, #, $, %, ^, &, *)';
     }
     return this.password.hasError('password') ? 'Not a valid password' : '';
+  }
+
+
+  public onSubmit(): void{
+    this.authService
+    .login(this.loginForm.value)
+    .subscribe((authReponse: AuthResponse) => {
+      console.log('AuthResponse: ', authReponse);
+      this.router.navigate(['']);
+    });
   }
 }
