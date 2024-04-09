@@ -21,7 +21,7 @@ import com.example.simplefurniture_backend.models.CustomUser;
 import com.example.simplefurniture_backend.services.CredentialValidator;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://s1148519.student.inf-hsleiden.nl:18519"})
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -59,11 +59,11 @@ public class AuthController {
                     HttpStatus.NOT_FOUND, "Can not register with this email");
         }
         String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
-        CustomUser registerdCustomUser = new CustomUser(authenticationDTO.email, encodedPassword,
-                authenticationDTO.role);
-        userDAO.save(registerdCustomUser);
-        String token = jwtUtil.generateToken(registerdCustomUser.getEmail());
-        LoginResponse loginResponse = new LoginResponse(registerdCustomUser.getEmail(), token);
+        CustomUser registeredCustomUser = new CustomUser(authenticationDTO.email, encodedPassword,
+                authenticationDTO.isAdmin, authenticationDTO.address, authenticationDTO.FirstName, authenticationDTO.LastName);
+        userDAO.save(registeredCustomUser);
+        String token = jwtUtil.generateToken(registeredCustomUser.getEmail());
+        LoginResponse loginResponse = new LoginResponse(registeredCustomUser.getEmail(), token);
         return ResponseEntity.ok(loginResponse);
     }
 

@@ -15,7 +15,7 @@ import com.example.simplefurniture_backend.dto.CategoryDTO;
 import com.example.simplefurniture_backend.models.Category;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://s1148519.student.inf-hsleiden.nl:18519"})
 @RequestMapping("/category")
 public class CategoryController {
 

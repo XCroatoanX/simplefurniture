@@ -16,8 +16,8 @@ public class Product {
     private String name;
     private double price;
     private String description;
-    private double size;
-    private String color;
+    private int stock;
+    private String imgUrl;
 
     private boolean isFinished = false;
 
@@ -37,13 +37,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, double price, double size, String color, Category category) {
+    public Product(String name, String description, double price, Category category, int stock, String imgUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
-        this.size = size;
-        this.color = color;
+        this.stock = stock;
+        this.imgUrl = imgUrl;
     }
 
     // getters and setters are needed to map all the properties to the database by
@@ -98,20 +98,11 @@ public class Product {
         isFinished = finished;
     }
 
-    public double getSize() {
-        return size;
-    }
+    public String getImgUrl() { return imgUrl; }
 
-    public void setSize(double size) {
-        this.size = size;
-    }
+    public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
 
-    public String getColor() {
-        return color;
-    }
+    public int getStock() { return stock; }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
+    public void setStock(int stock) { this.stock = stock; }
 }

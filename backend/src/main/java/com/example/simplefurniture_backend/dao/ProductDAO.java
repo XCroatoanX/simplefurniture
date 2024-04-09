@@ -44,7 +44,7 @@ public class ProductDAO {
     public void createProduct(ProductDTO productDTO){
         Optional<Category> category = this.categoryRepository.findById(productDTO.categoryId);
         if (category.isPresent()){
-            Product product = new Product(productDTO.name, productDTO.description, productDTO.price, productDTO.size, productDTO.color, category.get());
+            Product product = new Product(productDTO.name, productDTO.description, productDTO.price, category.get(), productDTO.stock, productDTO.imgUrl);
             this.productRepository.save(product);
             return;
         }
@@ -66,9 +66,9 @@ public class ProductDAO {
         if (product.isPresent()){
             product.get().setDescription(productDTO.description);
             product.get().setName(productDTO.name);
-            product.get().setColor(productDTO.color);
-            product.get().setSize(productDTO.size);
+            product.get().setStock(productDTO.stock);
             product.get().setPrice(productDTO.price);
+            product.get().setImgUrl(productDTO.imgUrl);
 
             this.productRepository.save(product.get());
         }

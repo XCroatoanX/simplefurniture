@@ -20,7 +20,7 @@ import com.example.simplefurniture_backend.models.Product;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://s1148519.student.inf-hsleiden.nl:18519"})
 @RequestMapping("/products")
 public class ProductController {
 
