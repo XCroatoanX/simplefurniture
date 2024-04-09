@@ -1,11 +1,15 @@
 package com.example.simplefurniture_backend.models;
 
+import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.util.UUID;
+import jakarta.persistence.OneToOne;
 
 @Entity(name = "Users")
 public class CustomUser {
@@ -16,21 +20,24 @@ public class CustomUser {
     private String email;
     private String password;
     private boolean isAdmin;
-    private String address;
-    private String FirstName;
-    private String LastName;
+    private String firstName;
+    private String lastName;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JsonBackReference
+    private Address address;
 
     public CustomUser() {
     }
 
-    public CustomUser(String email, String password, boolean isAdmin, String address, String FirstName, String LastName) {
+    public CustomUser(String email, String password, boolean isAdmin, Address address, String firstName,
+            String lastName) {
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
         this.address = address;
-        this.FirstName = FirstName;
-        this.LastName = LastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     // setters
@@ -50,11 +57,17 @@ public class CustomUser {
         this.isAdmin = isAdmin;
     }
 
-    public void setAdress(String adress) { this.address = adress; }
+    public void setAdress(Address adress) {
+        this.address = adress;
+    }
 
-    public void setFirstName(String firstName) { FirstName = firstName; }
+    public void setfirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public void setLastName(String lastName) { LastName = lastName; }
+    public void setlastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     // getters
     public String getEmail() {
@@ -69,11 +82,19 @@ public class CustomUser {
         return id;
     }
 
-    public boolean getAdmin() { return isAdmin; }
+    public boolean getAdmin() {
+        return isAdmin;
+    }
 
-    public String getAdress() { return address; }
+    public Address getAdress() {
+        return address;
+    }
 
-    public String getFirstName() { return FirstName; }
+    public String getfirstName() {
+        return firstName;
+    }
 
-    public String getLastName() { return LastName; }
+    public String getlastName() {
+        return lastName;
+    }
 }

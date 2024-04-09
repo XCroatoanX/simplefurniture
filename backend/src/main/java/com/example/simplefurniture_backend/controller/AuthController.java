@@ -21,7 +21,7 @@ import com.example.simplefurniture_backend.models.CustomUser;
 import com.example.simplefurniture_backend.services.CredentialValidator;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://s1148519.student.inf-hsleiden.nl:18519"})
+@CrossOrigin(origins = { "http://localhost:4200", "http://s1148519.student.inf-hsleiden.nl:18519" })
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -60,7 +60,8 @@ public class AuthController {
         }
         String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
         CustomUser registeredCustomUser = new CustomUser(authenticationDTO.email, encodedPassword,
-                authenticationDTO.isAdmin, authenticationDTO.address, authenticationDTO.FirstName, authenticationDTO.LastName);
+                authenticationDTO.isAdmin, authenticationDTO.address, authenticationDTO.firstName,
+                authenticationDTO.lastName);
         userDAO.save(registeredCustomUser);
         String token = jwtUtil.generateToken(registeredCustomUser.getEmail());
         LoginResponse loginResponse = new LoginResponse(registeredCustomUser.getEmail(), token);
