@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.simplefurniture_backend.config.JWTUtil;
-import com.example.simplefurniture_backend.dao.UserRepository;
+import com.example.simplefurniture_backend.dao.CustomUserRepository;
 import com.example.simplefurniture_backend.dto.AuthenticationDTO;
 import com.example.simplefurniture_backend.dto.LoginResponse;
 import com.example.simplefurniture_backend.models.CustomUser;
@@ -25,14 +25,14 @@ import com.example.simplefurniture_backend.services.CredentialValidator;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserRepository userDAO;
+    private final CustomUserRepository userDAO;
     private final JWTUtil jwtUtil;
     private final AuthenticationManager authManager;
     private final PasswordEncoder passwordEncoder;
     private CredentialValidator validator;
 
-    public AuthController(UserRepository userDAO, JWTUtil jwtUtil, AuthenticationManager authManager,
-            PasswordEncoder passwordEncoder, CredentialValidator validator) {
+    public AuthController(CustomUserRepository userDAO, JWTUtil jwtUtil, AuthenticationManager authManager,
+                          PasswordEncoder passwordEncoder, CredentialValidator validator) {
         this.userDAO = userDAO;
         this.jwtUtil = jwtUtil;
         this.authManager = authManager;

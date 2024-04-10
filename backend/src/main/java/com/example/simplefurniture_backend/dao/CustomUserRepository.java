@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.simplefurniture_backend.models.CustomUser;
 
-public interface UserRepository extends JpaRepository<CustomUser, Long> {
+public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
     CustomUser findByEmail(String email);
 }

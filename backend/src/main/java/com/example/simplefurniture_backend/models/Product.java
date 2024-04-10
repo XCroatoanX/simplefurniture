@@ -2,17 +2,15 @@ package com.example.simplefurniture_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.UUID;
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private double price;
     private String description;
@@ -58,13 +56,11 @@ public class Product {
         this.category = category;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(UUID id) { this.id = id; }
 
     public String getName() {
         return name;

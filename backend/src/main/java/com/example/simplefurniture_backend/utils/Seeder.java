@@ -1,5 +1,6 @@
 package com.example.simplefurniture_backend.utils;
 
+import com.example.simplefurniture_backend.dao.CustomUserRepository;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.example.simplefurniture_backend.dao.AddressDAO;
 import com.example.simplefurniture_backend.dao.CategoryRepository;
 import com.example.simplefurniture_backend.dao.ProductDAO;
-import com.example.simplefurniture_backend.dao.UserRepository;
 import com.example.simplefurniture_backend.models.Address;
 import com.example.simplefurniture_backend.models.Category;
 import com.example.simplefurniture_backend.models.CustomUser;
@@ -17,14 +17,14 @@ import com.example.simplefurniture_backend.models.Product;
 @Component
 public class Seeder {
         private ProductDAO productDAO;
-        private UserRepository userRepository;
+        private CustomUserRepository customUserRepository;
         private CategoryRepository categoryRepository;
         private AddressDAO addressDAO;
 
-        public Seeder(ProductDAO productDAO, UserRepository userRepository, CategoryRepository categoryRepository,
-                        AddressDAO addressDAO) {
+        public Seeder(ProductDAO productDAO, CustomUserRepository customUserRepository, CategoryRepository categoryRepository,
+                      AddressDAO addressDAO) {
                 this.productDAO = productDAO;
-                this.userRepository = userRepository;
+                this.customUserRepository = customUserRepository;
                 this.categoryRepository = categoryRepository;
                 this.addressDAO = addressDAO;
         }
@@ -99,6 +99,6 @@ public class Seeder {
                 customUser.setAdress(address);
                 customUser.setfirstName("Artem");
                 customUser.setlastName("Stasyuk");
-                userRepository.save(customUser);
+                customUserRepository.save(customUser);
         }
 }

@@ -11,14 +11,14 @@ import java.util.List;
 
 @Component
 public class CustomUserDAO {
-    private final UserRepository userRepository;
+    private final CustomUserRepository customUserRepository;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
     private final AddressDAO addressDAO;
     private final JWTUtil jwtUtil;
 
-    public CustomUserDAO(UserRepository userRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder, AddressDAO addressDAO, JWTUtil jwtUtil) {
-        this.userRepository = userRepository;
+    public CustomUserDAO(CustomUserRepository customUserRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder, AddressDAO addressDAO, JWTUtil jwtUtil) {
+        this.customUserRepository = customUserRepository;
         this.addressRepository = addressRepository;
         this.passwordEncoder = passwordEncoder;
         this.addressDAO = addressDAO;
@@ -26,19 +26,14 @@ public class CustomUserDAO {
     }
 
     public List<CustomUser> getAllCustomUsers() {
-        return this.userRepository.findAll();
+        return this.customUserRepository.findAll();
     }
-
-    // NEED TO ASK HELP WITH THIS
-//    public CustomUser getCustomUser(String userToken){
-//        return this.userRepository.findByToken(userToken)
-//    }
 
 
     @Transactional
     public void createCustomUser(CustomUserDTO customUserDTO) {
         CustomUser customUser = new CustomUser(customUserDTO.email, customUserDTO.password, customUserDTO.isAdmin, customUserDTO.address, customUserDTO.firstName, customUserDTO.lastName);
-        this.userRepository.save(customUser);
+        this.customUserRepository.save(customUser);
     }
 
     @Transactional
