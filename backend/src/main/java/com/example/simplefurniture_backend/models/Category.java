@@ -2,6 +2,7 @@ package com.example.simplefurniture_backend.models;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -21,7 +22,7 @@ public class Category {
     infinite dependency loop in the request.
      */
     @OneToMany(mappedBy = "category")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Product> products;
 
     //needed by JPA to create the entity must be present no arg constructor

@@ -97,8 +97,8 @@ public class Seeder {
                 customUser.setPassword(new BCryptPasswordEncoder().encode("Test123!"));
                 customUser.setAdmin(true);
                 customUser.setAdress(address);
-                customUser.setfirstName("Artem");
-                customUser.setlastName("Stasyuk");
+                customUser.setfirstName("Test");
+                customUser.setlastName("test");
                 customUserRepository.save(customUser);
         }
 }
